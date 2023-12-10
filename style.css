@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Afacad:wght@400;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Afacad', sans-serif;
+}
+
+body {
+    background-color: cornflowerblue;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.selection-box {
+    width: 25vw;
+    background-color: white;
+    height: 16vw;
+    padding: 0px 25px;
+    display: none;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 10px;
+}
+
+button {
+    background-color: cornflowerblue;
+    border: none;
+    margin: none;
+    color: white;
+    padding: 1vw 2.5vw;
+    font-size: 1.5vw;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transform: all 0.9s;
+}
+
+button:hover {
+    transform: scale(0.98);
+}
+
+.selection-box h4 {
+    font-size: 1.5vw;
+}
+
+.selection-box h1 {
+    border-bottom: 1px solid black;
+    padding-bottom: 10px;
+    text-align: center;
+    width: 100%;
+}
+
+.play-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    display: none;
+}
+
+.play-section {
+    margin-top: 5px;
+}
+
+.details {
+    background-color: white;
+    height: 5vw;
+    width: 22.5vw;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section {
+    display: flex;
+}
+
+section span {
+    height: 7vw;
+    width: 7vw;
+    margin: 5px;
+    border-radius: 5px;
+    background-color: white;
+    font-size: 6vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #56baed;
+}
+
+.players {
+    display: flex;
+    position: relative;
+    width: 96%;
+    height: 96%;
+    gap: 3px;
+    align-items: center;
+    padding: 8px;
+    justify-content: space-between;
+}
+
+.players span {
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 0;
+    font-weight: 900;
+    font-size: 500;
+    color: #56baed;
+    font-size: 2vw;
+    z-index: 5;
+}
+.players .slider{
+    position: absolute;
+    left: 2%;
+    top: 12%;
+    width: 48%;
+    height: 76%;
+    background-color: #56baed;
+    transition: all 0.5s;
+    z-index: 1;
+}
+.players .active{
+    color: white;
+    transition: all 0.5s;
+}
+
+.result {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-direction: column;
+    width: 30vw;
+    border-radius: 10px;
+    height: 13vw;
+    display: none;
+    align-items: center;
+}
+.result h1{
+    font-size: 2.5vw;
+}
+.winner{
+    color: #56baed;
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Tic Tac Toe</title>
+</head>
+
+<body>
+
+    <div class="selection-box">
+        <h1>Tic Tac Toe</h1>
+
+        <h4>Select Which You wants to Be.</h4>
+        <div class="buttons">
+            <button class="selection-button-x">Player (X)</button>
+            <button class="selection-button-o">Player (O)</button>
+        </div>
+    </div>
+
+
+    <div class="play-area">
+        <div class="details">
+            <div class="players">
+                <span class="playerX active">X Turn</span>
+                <span class="playerO">O Turn</span>
+                <span class="slider"></span>
+            </div>
+        </div>
+        <div class="play-section">
+            <section>
+                <span class="box1">O</span>
+                <span class="box2">X</span>
+                <span class="box3"></span>
+            </section>
+
+            <section>
+                <span class="box4"></span>
+                <span class="box5"></span>
+                <span class="box6"></span>
+            </section>
+
+            <section>
+                <span class="box7"></span>
+                <span class="box8"></span>
+                <span class="box9"></span>
+            </section>
+        </div>
+    </div>
+
+    <div class="result">
+        <h1>Player <span class="winner">X</span> Won the Game!</h1>
+        <button>Replay</button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
