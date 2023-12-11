@@ -18,7 +18,7 @@ function hidingAndShow(hide, show) {
 function OTurnAnimation() {
     slider.style.left = '50%'
     playerX.classList.remove('active')
-    playerO.classList.add('active' , 'player')
+    playerO.classList.add('active', 'player')
 }
 function XTurnAnimation() {
     slider.style.left = '2%'
@@ -29,9 +29,9 @@ function XTurnAnimation() {
 window.onload = () => {
     for (let i = 0; i < spanElements.length; i++) {
         const element = spanElements[i];
-        element.setAttribute('onclick' , 'clickedElem(this)')
+        element.setAttribute('onclick', 'clickedElem(this)')
     }
-   
+
     selectionButtonX.onclick = () => {
         hidingAndShow(selectionBox, playArea)
         XTurnAnimation()
@@ -40,4 +40,21 @@ window.onload = () => {
         hidingAndShow(selectionBox, playArea)
         OTurnAnimation()
     }
+}
+
+
+
+let cross = '<i class="fa-solid fa-xmark"></i>'
+let circle = '<i class="fa-regular fa-circle"></i>'
+function clickedElem(element) {
+    if (playerO.classList.contains('player')) {
+        element.innerHTML = circle
+        XTurnAnimation()
+        playerO.classList.remove('player')
+    }
+    else {
+        element.innerHTML = cross
+        OTurnAnimation()
+    }
+    element.style.pointerEvents = 'none'
 }
