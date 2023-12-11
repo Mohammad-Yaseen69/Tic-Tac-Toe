@@ -115,7 +115,9 @@ section span {
     justify-content: center;
     color: #56baed;
 }
-
+section span i {
+    font-size: 3.5vw;
+}
 .players-div {
     display: flex;
     position: relative;
