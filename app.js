@@ -48,19 +48,24 @@ let circle = '<i class="fa-regular fa-circle"></i>'
 function clickedElem(element) {
     if (playerO.classList.contains('player')) {
         element.innerHTML = circle
-        XTurnAnimation()
+        playerSign = 'O'
+        element.setAttribute('id', playerSign)
         playerO.classList.remove('player')
+        XTurnAnimation()
     }
     else {
         element.innerHTML = cross
+        element.setAttribute('id', playerSign)
         OTurnAnimation()
     }
     element.style.pointerEvents = 'none'
     botClick()
+    checkingWinner()
 }
 
 
 function botClick() {
+    playerSign = 'O'
     const array = []
     for (let i = 0; i < spanElements.length; i++) {
         const element = spanElements[i];
@@ -74,13 +79,46 @@ function botClick() {
             if (playerO.classList.contains('player')) {
                 spanElements[randomClick].innerHTML = circle
                 XTurnAnimation()
+
+                spanElements[randomClick].setAttribute('id', playerSign)
                 playerO.classList.remove('player')
             }
             else {
                 spanElements[randomClick].innerHTML = cross
+                playerSign = 'X'
+                spanElements[randomClick].setAttribute('id', playerSign)
                 OTurnAnimation()
             }
             spanElements[randomClick].style.pointerEvents = 'none'
+            playerSign = 'X'
         }
     }, 500)
+}
+
+
+function returningIds(className) {
+    return document.querySelector('.box' + className).id
+}
+
+function checking3SameIds(val1, val2, val3, sign) {
+    if (returningIds(val1) == sign &&
+        returningIds(val2) == sign &&
+        returningIds(val3) == sign) {
+        return true
+    }
+}
+
+function checkingWinner() {
+    if (
+        checking3SameIds(1, 2, 3, playerSign) ||
+        checking3SameIds(4, 5, 6, playerSign) ||
+        checking3SameIds(7, 8, 9, playerSign) ||
+        checking3SameIds(1, 4, 7, playerSign) ||
+        checking3SameIds(2, 5, 8, playerSign) ||
+        checking3SameIds(3, 6, 9, playerSign) ||
+        checking3SameIds(1, 5, 9, playerSign) ||
+        checking3SameIds(3, 5, 7, playerSign)
+    ) {
+        alert('The Winner is ' + playerSign) ;
+    }
 }
