@@ -14,16 +14,16 @@
         <h1>Tic Tac Toe</h1>
 
         <h4>Select Which You wants to Be.</h4>
-        <div class="buttons">
+        <div class="buttons show">
             <button class="selection-button-x">Player (X)</button>
             <button class="selection-button-o">Player (O)</button>
         </div>
     </div>
 
 
-    <div class="play-area">
+    <div class="play-area hide">
         <div class="details">
-            <div class="players">
+            <div class="players-div">
                 <span class="playerX active">X Turn</span>
                 <span class="playerO">O Turn</span>
                 <span class="slider"></span>
@@ -35,7 +35,7 @@
                 <span class="box2">X</span>
                 <span class="box3"></span>
             </section>
-
+        
             <section>
                 <span class="box4"></span>
                 <span class="box5"></span>
@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    <div class="result">
+    <div class="result hide">
         <h1>Player <span class="winner">X</span> Won the Game!</h1>
         <button>Replay</button>
     </div>
