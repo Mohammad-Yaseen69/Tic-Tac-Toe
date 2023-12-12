@@ -7,6 +7,7 @@ const slider = document.querySelector('.slider');
 const playerX = document.querySelector('.playerX')
 const playerO = document.querySelector('.playerO')
 const spanElements = document.querySelectorAll('section span')
+const winner = document.querySelector('.winner')
 
 let playerSign = 'X'
 function hidingAndShow(hide, show) {
@@ -35,10 +36,27 @@ window.onload = () => {
     selectionButtonX.onclick = () => {
         hidingAndShow(selectionBox, playArea)
         XTurnAnimation()
+        spanElements.forEach(element => {
+            element.style.pointerEvents = 'auto'
+            element.id = null
+        })
     }
     selectionButtonO.onclick = () => {
         hidingAndShow(selectionBox, playArea)
         OTurnAnimation()
+        spanElements.forEach(element => {
+            element.style.pointerEvents = 'auto'
+            element.id = null
+        })
+    }
+}
+
+function showingResult() {
+    if (checkingWinner()) {
+        hidingAndShow(playArea, resultSection)
+    }
+    if (resultSection.classList.contains('show')) {
+        winner.innerHTML = playerSign
     }
 }
 
@@ -47,52 +65,52 @@ let circle = '<i class="fa-regular fa-circle"></i>'
 
 function clickedElem(element) {
     if (playerO.classList.contains('player')) {
-        element.innerHTML = circle
-        playerSign = 'O'
-        element.setAttribute('id', playerSign)
-        playerO.classList.remove('player')
-        XTurnAnimation()
+        element.innerHTML = circle;
+        playerSign = 'O';
+        element.setAttribute('id', playerSign);
+        playerO.classList.remove('player');
+        XTurnAnimation();
+    } else {
+        element.innerHTML = cross;
+        playerSign = 'X'
+        element.setAttribute('id', playerSign);
+        OTurnAnimation();
     }
-    else {
-        element.innerHTML = cross
-        element.setAttribute('id', playerSign)
-        OTurnAnimation()
-    }
-    element.style.pointerEvents = 'none'
-    botClick()
-    checkingWinner()
+    element.style.pointerEvents = 'none';
+    botClick();
+    showingResult()
 }
 
 
+
 function botClick() {
-    playerSign = 'O'
-    const array = []
+    const array = [];
     for (let i = 0; i < spanElements.length; i++) {
         const element = spanElements[i];
         if (element.childElementCount == 0) {
-            array.push(i)
+            array.push(i);
         }
     }
     setTimeout(() => {
-        let randomClick = array[Math.floor(Math.random() * array.length)]
+        let randomClick = array[Math.floor(Math.random() * array.length)];
         if (array.length > 0) {
             if (playerO.classList.contains('player')) {
-                spanElements[randomClick].innerHTML = circle
-                XTurnAnimation()
-
-                spanElements[randomClick].setAttribute('id', playerSign)
-                playerO.classList.remove('player')
+                spanElements[randomClick].innerHTML = circle;
+                XTurnAnimation();
+                playerSign = 'O';
+                spanElements[randomClick].setAttribute('id', playerSign);
+                playerO.classList.remove('player');
             }
             else {
-                spanElements[randomClick].innerHTML = cross
-                playerSign = 'X'
-                spanElements[randomClick].setAttribute('id', playerSign)
-                OTurnAnimation()
+                spanElements[randomClick].innerHTML = cross;
+                playerSign = 'X';
+                spanElements[randomClick].setAttribute('id', playerSign);
+                OTurnAnimation();
             }
-            spanElements[randomClick].style.pointerEvents = 'none'
-            playerSign = 'X'
+            spanElements[randomClick].style.pointerEvents = 'none';
+            showingResult()
         }
-    }, 500)
+    }, 500);
 }
 
 
@@ -100,25 +118,32 @@ function returningIds(className) {
     return document.querySelector('.box' + className).id
 }
 
-function checking3SameIds(val1, val2, val3, sign) {
-    if (returningIds(val1) == sign &&
-        returningIds(val2) == sign &&
-        returningIds(val3) == sign) {
-        return true
-    }
-}
 
 function checkingWinner() {
-    if (
-        checking3SameIds(1, 2, 3, playerSign) ||
-        checking3SameIds(4, 5, 6, playerSign) ||
-        checking3SameIds(7, 8, 9, playerSign) ||
-        checking3SameIds(1, 4, 7, playerSign) ||
-        checking3SameIds(2, 5, 8, playerSign) ||
-        checking3SameIds(3, 6, 9, playerSign) ||
-        checking3SameIds(1, 5, 9, playerSign) ||
-        checking3SameIds(3, 5, 7, playerSign)
-    ) {
-        alert('The Winner is ' + playerSign) ;
+    const winningCombinations = [
+        [1, 2, 3], [4, 5, 6], [7, 8, 9],
+        [1, 4, 7], [2, 5, 8], [3, 6, 9],
+        [1, 5, 9], [3, 5, 7]
+    ]
+
+    for (const combination of winningCombinations) {
+        const [val1, val2, val3] = combination;
+        if (
+            returningIds(val1) === playerSign &&
+            returningIds(val2) === playerSign &&
+            returningIds(val3) === playerSign
+        ) {
+            return true;
+        }
     }
+    return false;
+}
+
+
+function replayBtn() {
+    hidingAndShow(resultSection, selectionBox)
+    spanElements.forEach(element => {
+        element.innerHTML = ''
+    })
+    location.reload()
 }
