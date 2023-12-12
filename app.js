@@ -10,6 +10,8 @@ const spanElements = document.querySelectorAll('section span')
 const winner = document.querySelector('.winner')
 
 let playerSign = 'X'
+let runBot = true;
+
 function hidingAndShow(hide, show) {
     hide.classList.add('hide')
     hide.classList.remove('show')
@@ -51,14 +53,6 @@ window.onload = () => {
     }
 }
 
-function showingResult() {
-    if (checkingWinner()) {
-        hidingAndShow(playArea, resultSection)
-    }
-    if (resultSection.classList.contains('show')) {
-        winner.innerHTML = playerSign
-    }
-}
 
 let cross = '<i class="fa-solid fa-xmark"></i>'
 let circle = '<i class="fa-regular fa-circle"></i>'
@@ -77,40 +71,42 @@ function clickedElem(element) {
         OTurnAnimation();
     }
     element.style.pointerEvents = 'none';
-    botClick();
+    botClick(runBot);
     showingResult()
 }
 
 
 
-function botClick() {
-    const array = [];
-    for (let i = 0; i < spanElements.length; i++) {
-        const element = spanElements[i];
-        if (element.childElementCount == 0) {
-            array.push(i);
+function botClick(runBot) {
+    if (runBot) {
+        const array = [];
+        for (let i = 0; i < spanElements.length; i++) {
+            const element = spanElements[i];
+            if (element.childElementCount == 0) {
+                array.push(i);
+            }
         }
+        setTimeout(() => {
+            let randomClick = array[Math.floor(Math.random() * array.length)];
+            if (array.length > 0) {
+                if (playerO.classList.contains('player')) {
+                    spanElements[randomClick].innerHTML = circle;
+                    XTurnAnimation();
+                    playerSign = 'O';
+                    spanElements[randomClick].setAttribute('id', playerSign);
+                    playerO.classList.remove('player');
+                }
+                else {
+                    spanElements[randomClick].innerHTML = cross;
+                    playerSign = 'X';
+                    spanElements[randomClick].setAttribute('id', playerSign);
+                    OTurnAnimation();
+                }
+                spanElements[randomClick].style.pointerEvents = 'none';
+                showingResult()
+            }
+        }, 500);
     }
-    setTimeout(() => {
-        let randomClick = array[Math.floor(Math.random() * array.length)];
-        if (array.length > 0) {
-            if (playerO.classList.contains('player')) {
-                spanElements[randomClick].innerHTML = circle;
-                XTurnAnimation();
-                playerSign = 'O';
-                spanElements[randomClick].setAttribute('id', playerSign);
-                playerO.classList.remove('player');
-            }
-            else {
-                spanElements[randomClick].innerHTML = cross;
-                playerSign = 'X';
-                spanElements[randomClick].setAttribute('id', playerSign);
-                OTurnAnimation();
-            }
-            spanElements[randomClick].style.pointerEvents = 'none';
-            showingResult()
-        }
-    }, 500);
 }
 
 
@@ -133,12 +129,41 @@ function checkingWinner() {
             returningIds(val2) === playerSign &&
             returningIds(val3) === playerSign
         ) {
+            winner.innerHTML = playerSign
+            runBot = false
             return true;
         }
     }
     return false;
 }
 
+
+function checkingDraw() {
+    if (!checkingWinner()) {
+        for (let i = 0; i < spanElements.length; i++) {
+            const element = spanElements[i];
+            if (element.childElementCount === 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+    return false;
+}
+
+function showingResult() {
+    const drawElem = document.querySelector('.winner-h1')
+    if (checkingWinner()) {
+        setTimeout(() => {
+            hidingAndShow(playArea, resultSection)
+        }, 500)
+    }
+    if (checkingDraw()) {
+        hidingAndShow(playArea, resultSection)
+        drawElem.innerHTML = 'Its a draw'
+    }
+}
 
 function replayBtn() {
     hidingAndShow(resultSection, selectionBox)
